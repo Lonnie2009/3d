@@ -7,7 +7,31 @@ const renderer = new THREE.WebGLRenderer();
 const controls = new OrbitControls( camera, renderer.domElement );
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+const loader = new OBJLoader();
 
+// load a resource
+loader.load(
+	// resource URL
+	'ImportAusslage.obj',
+	// called when resource is loaded
+	function ( object ) {
+
+		scene.add( object );
+
+	},
+	// called when loading is in progresses
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
 
 camera.position.z = 5;
 
